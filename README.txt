@@ -1,8 +1,8 @@
 # Glasgow-Museums
 Web-based mobile apps: Focused on delivering information structures, using varying technologies to request and recieve data from web services. These applications were developed on a local client and server using XAMPP, however are functional in a live envirnoment.
 
-Key Development Technologies: 	REST, SOAP, JSON, XML. 
-Other Technologies: 			JavaScript, AJAX, HTML5, CSS3, Bootstrap, Google API Services (Maps & Geocode)
+Key Development Technologies:	REST, SOAP, JSON, XML. 
+Other Technologies:	JavaScript, AJAX, HTML5, CSS3, Bootstrap, Google API Services (Maps & Geocode)
 
 Developed by myself for my MSc project submission at UWS.
 

@@ -1,0 +1,4 @@
+Client HTML should call, via a form or a link, a server script written in PHP 
+(or another language you're at ease with) that will contact the SOAP server 
+and parse the SOAP response. Then this server script will return the result 
+to the client in HTML. PHP as built-in SOAP functions for that

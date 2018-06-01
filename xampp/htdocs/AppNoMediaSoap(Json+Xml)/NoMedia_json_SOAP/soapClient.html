@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+<html>  
+  <head>
+    <title>Glasgow Museums</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="museumstyles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
+  </head>
+  <body>
+  <div id="mainContainer">
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-inverse" id="mynavbar">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsemenu" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="#" class="navbar-brand">Glasgow Museums</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="collapsemenu">
+          <ul class="nav navbar-nav">
+            <li><a href="#" id="item1">Kelvingrove Art Gallery and Museum</a></li>
+            <li><a href="#" id="item2">The Burrell Collection</a></li>
+            <li><a href="#" id="item3">Gallery of Modern Art</a></li>
+            <li><a href="#" id="item4">St. Mungo Museum of Religious Life and Art</a></li>
+            <li><a href="#" id="item5">Hunterian Gallery</a></li>
+            <li><a href="#" id="item6">Pollok House</a></li>
+            <li><a href="#" id="item7">Mackintosh Building</a></li>
+            <li><a href="#" id="item8">Collins Gallery</a></li>
+            <li><a href="#" id="item9">McLellan Galleries</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Area for information content -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h1 id="infoHeaderOne">Kelvingrove Art Gallery and Museum</h1>
+          <p id="infoContent">Kelvingrove Museum opened in 1901 and is a firm favourite with local people and visitors. It has stunning architecture and a family friendly atmosphere. Explore its 22 galleries and discover everything from art to animals, Ancient Egypt to Charles Rennie Mackintosh and so much more. There is also have a changing programme of temporary exhibitions and displays. Enjoy an organ recital, a free tour or at weekends and holidays take part in one of our family activities.</p>
+        </div>  
+        <div class="col-md-6">
+          <h1>Open Hours</h1>          
+          <h4 id="openHeader"></h4>
+          <h4 id="closeHeader"></h4>          
+        </div>      
+      </div>      
+    </div>
+
+    <!-- Footer of the page -->
+    <nav class="navbar navbar-inverse navbar-static-bottom navbar-center" id="pageFooter">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4 col-centered-m" id="topRowFooter"><a href="#" class="navbar-brand col-centered" id="footerText">Luke Beveridge</a></div>
+                <div class="col-md-4"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4 col-centered"><a href="#" class="navbar-brand col-centered" id="footerText">University of the West of Scotland</a></div>
+                <div class="col-md-4"></div>
+            </div>              
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4 col-centered"><a href="#" class="navbar-brand col-centered" id="footerText">MSc Mobile Web Development | Masters Project</a></div>
+                <div class="col-md-4"></div>
+            </div>          
+        </div>      
+    </nav>
+    </div>
+
+
+    <script type="text/javascript"> 
+      
+        // Declare global variables.
+        var museumIndex = "";
+       
+        // Initialise to a default location to allow for the map to generate with a starter location on-load.
+        var loc = "kelvingrove art gallery, glasgow";
+
+        // Initialise other variables that will alter based on selected location.
+        var placeName = "Kelvingrove Art Gallery and Museum";
+        var openTime = "10:00";
+        var closeTime = "17:00";  
+        var desc = "";
+
+        document.getElementById("openHeader").innerHTML = "Open: " + openTime;
+        document.getElementById("closeHeader").innerHTML = "Close: " + closeTime;
+
+
+        // Dependant on the museum selected, pass the associated reference.
+        function getIndex(item) {
+            var id = item.substring(4, 5);
+            museumIndex = id;
+            dataRetrieval();
+        }
+
+        // Generate new AJAX request object based upon the current browser.
+        function ajaxRequest(){
+            var activexmodes = ["Msxml2.XMLHTTP", "Microsoft.XMLHTTP"]; // ActiveX versions to check for in IE.
+            if (window.ActiveXObject) { // Test for support for ActiveXObject in IE first (as XMLHttpRequest in IE7 is broken).
+              for (var i=0; i<activexmodes.length; i++) {
+                try{
+                  return new ActiveXObject(activexmodes[i])
+                }
+                catch(e){
+                  console.log(e); // Handle error.
+                }
+              }
+            } else if (window.XMLHttpRequest) { // Firefox, Mozilla, Safari etc...
+                return new XMLHttpRequest()
+            } else {
+                return false
+            }
+        }
+
+        // Prepare the previously generated AJAX request object in the form of a GET request, retrieve data and sort it accordingly.
+        function dataRetrieval() {
+            var mygetrequest = new ajaxRequest()
+            mygetrequest.onreadystatechange = function() {
+              if (mygetrequest.readyState == 4) {
+                if (mygetrequest.status == 200 || window.location.href.indexOf("http") == -1) {
+                  var jsondata = eval("("+mygetrequest.responseText+")"); //retrieve result as an JavaScript object
+                  var rssentries = jsondata.museums;
+                  
+                  
+                  for (var i=0; i<rssentries.length; i++) {            
+
+                    // Get currently selected location name, and update relevant areas in page.
+                    placeName = rssentries[i].museum_name;
+                    document.getElementById("infoHeaderOne").innerHTML = placeName;
+                    openTime = rssentries[i].open_time;
+                    document.getElementById("openHeader").innerHTML = "Open: " + openTime;
+                    closeTime = rssentries[i].close_time;
+                    document.getElementById("closeHeader").innerHTML = "Close: " + closeTime;
+                    desc = rssentries[i].description;
+                    document.getElementById("infoContent").innerHTML = desc;
+
+                    // Update the location variable, ready to pass to Geocoder function.
+                    loc = rssentries[i].address;
+                   
+                  }     
+                } else {
+                    alert("An error has occured making the request")
+                }
+              }
+            }
+            mygetrequest.open("GET", "webServer.php?id="+museumIndex, true);
+            mygetrequest.send(null);
+        }
+
+        // Click Event Listeners for each list item.
+        document.getElementById("item1").addEventListener("click",function(event) { 
+        getIndex(event.target.id);          
+        });
+        document.getElementById("item2").addEventListener("click",function(event) { 
+        getIndex(event.target.id);        
+        });
+        document.getElementById("item3").addEventListener("click",function(event) { 
+        getIndex(event.target.id);
+        });
+        document.getElementById("item4").addEventListener("click",function(event) { 
+        getIndex(event.target.id);
+        });
+        document.getElementById("item5").addEventListener("click",function(event) { 
+        getIndex(event.target.id);
+        });
+        document.getElementById("item6").addEventListener("click",function(event) { 
+        getIndex(event.target.id);
+        });
+        document.getElementById("item7").addEventListener("click",function(event) { 
+        getIndex(event.target.id);
+        });
+        document.getElementById("item8").addEventListener("click",function(event) {
+        getIndex(event.target.id);
+        });
+        document.getElementById("item9").addEventListener("click",function(event) { 
+        getIndex(event.target.id);
+        });
+    </script>
+  </body>
+</html>

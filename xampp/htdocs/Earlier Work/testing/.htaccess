@@ -1,0 +1,5 @@
+ErrorDocument 404 http://localhost:180/GlasgowMuseums_json_REST/client/error.html
+
+RewriteEngine On
+
+RewriteRule ^steptwo?$ teststeptwo.php

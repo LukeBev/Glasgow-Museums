@@ -1,0 +1,5 @@
+ErrorDocument 404 http://localhost:180/GlasgowMuseums_json/client/error.html
+
+RewriteEngine On
+
+RewriteRule ^home?$ home.html

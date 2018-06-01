@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset = "utf-8">        
+        <title>MovieProps</title> 
+        <link rel="stylesheet" type="text/css" href="moviePropsStyles.css"> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script>
+            var flag = 1;            
+            $(document).ready(function(){
+                $("#contentButton").click(function(){
+                    switch (flag) {
+                        case 0:                            
+                            document.getElementById("contentButton").innerText = "Read More"
+                            flag = 1;                      
+                            break;                            
+                        case 1:                              
+                            document.getElementById("contentButton").innerText = "Read Less"
+                            flag = 0;
+                            break;
+                    }
+                    $(".moreContent").toggle(1000);
+                });
+            });
+        </script>
+    </head>
+    
+    <body id="about">        
+        <table id="topBar">
+            <tr>
+                <td id="divHeadLeft">
+                    <canvas id="myCanvas" width="200" height="200">
+                        Your browser does not support the HTML5 canvas tag.
+                    </canvas>
+                    <script src="javascript/canvasLogo.js" type="text/javascript"></script>             
+                </td> 
+                <td id="divHeadRight">
+                    <nav id="outer">
+                        <a href="home.php"><div id="divHeadRightOne">Home</div></a>
+                        <a href="about.html"><div id="divHeadRightTwo">About</div></a> 
+                        <a href="products.aspx"><div id="divHeadRightThree">Products</div></a>
+                        <a href="registration.html"><div id="divHeadRightFour">Registration</div></a>
+                        <div id="divHeadRightFive"></div>
+                        <a href="admin.php"><div id="divHeadRightSix">Admin</div></a>
+                    </nav>                   
+                </td>
+            </tr>
+        </table> 
+
+        <div id="aboutTextContainer">
+            <div class="aboutText">
+                <p>In 2005, Prop Store founder Luke Beveridge’s love for movies led him to begin hunting for the same props and costumes that were used to create his favourite films. He found that he could not only provide collectors with access to their most coveted pieces, but also establish archival standards for this new, pop-culture hybrid of fine art and memorabilia collecting—prop art.</p>
+      
+                <p class="moreContent">Once Luke assembled his dream team of like-minded movie fanatics, MovieProps set out like a band of movie archaeologists, looking to locate, research and preserve the treasure troves of important artifacts that hid in dark, sometimes forgotten corners all over the world.
+                Now, more than twelve years later, and MovieProps is thriving. With over thirty employees between our offices in Glasgow and New York and over 25,000 combined square feet of archived props and costumes, we’ve become the busiest and most trusted authority in the hobby.</p>
+
+                <p class="moreContent">Thinking of starting your own collection? Give us a call or e-mail and we’ll arrange a tour through one of our incredible galleries so that you can see the limitless possibilities that await.
+                The reality of owning an authentic prop or costume from your favourite movie could be just a call or click away…</p>
+            </div>
+            <button id="contentButton">Read More</button>    
+            
+            
+        </div>
+    </body>
+</html>

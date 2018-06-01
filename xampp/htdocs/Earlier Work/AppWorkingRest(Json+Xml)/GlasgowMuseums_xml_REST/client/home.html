@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>  
+<head>
+  
+</head>
+<body>
+
+<form>
+<!-- Name: <input id="selectName" type="text" name="name"><br> -->
+<input class="museumButton" type="button" value="Kelvingrove Art Gallery and Museum" onclick="getMuseum(1)">
+<input class="museumButton" type="button" value="The Burrell Collection" onclick="getMuseum(2)">
+<input class="museumButton" type="button" value="Gallery of Modern Art" onclick="getMuseum(3)">
+<input class="museumButton" type="button" value="St. Mungo Museum of Religious Life and Art" onclick="getMuseum(4)">
+<input class="museumButton" type="button" value="Hunterian Gallery" onclick="getMuseum(5)">
+<input class="museumButton" type="button" value="Pollok House" onclick="getMuseum(6)">
+<input class="museumButton" type="button" value="Mackintosh Building" onclick="getMuseum(7)">
+<input class="museumButton" type="button" value="Collins Gallery" onclick="getMuseum(8)">
+<input class="museumButton" type="button" value="McLellan Galleries" onclick="getMuseum(9)">
+
+</form>
+
+
+
+
+<table id="result"></table>
+
+<script type="text/javascript"> 
+var museumIndex = "";
+
+function getMuseum(number) {
+  museumIndex = number;
+  initRequest();
+}
+
+function initRequest() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      dataRetrieval(this);
+    }
+  };
+  xhttp.open("GET", "../webServices/museumCredentials.php?id="+museumIndex, true);
+  xhttp.send(null);
+}
+
+function dataRetrieval(xml) {
+  var i;
+  var xmlDoc = xml.responseXML;
+  var table="<tr><th>ID</th><th>Museum</th><th>Location</th><th>Open Hours</th><th>Close Hours</th></tr>";
+  var x = xmlDoc.getElementsByTagName("museum");
+  for (i = 0; i <x.length; i++) { 
+    table += "<tr><td>" +
+    x[i].getElementsByTagName("id")[0].childNodes[0].nodeValue +
+    "</td><td>" +
+    x[i].getElementsByTagName("museum_name")[0].childNodes[0].nodeValue +
+    "</td><td>" +
+    x[i].getElementsByTagName("address")[0].childNodes[0].nodeValue +
+    "</td><td>" +
+    x[i].getElementsByTagName("open_time")[0].childNodes[0].nodeValue +
+    "</td><td>" +
+    x[i].getElementsByTagName("close_time")[0].childNodes[0].nodeValue +
+    "</td></tr>";
+  }
+  document.getElementById("result").innerHTML = table;
+}
+
+</script>
+
+
+</body>
+</html>
+

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "utf-8">        
+        <title>MovieProps</title> 
+        <link rel="stylesheet" type="text/css" href="moviePropsStyles.css"> 
+    </head>
+    
+    <body id="registration">        
+        <table id="topBar">
+            <tr>
+                <td id="divHeadLeft">
+                    <canvas id="myCanvas" width="200" height="200">
+                        Your browser does not support the HTML5 canvas tag.
+                    </canvas>
+                    <script src="javascript/canvasLogo.js" type="text/javascript"></script>             
+                </td> 
+                <td id="divHeadRight">
+                    <nav id="outer">
+                        <a href="home.php"><div id="divHeadRightOne">Home</div></a>
+                        <a href="about.html"><div id="divHeadRightTwo">About</div></a> 
+                        <a href="products.aspx"><div id="divHeadRightThree">Products</div></a>
+                        <a href="registration.html"><div id="divHeadRightFour">Registration</div></a>
+                        <div id="divHeadRightFive"></div>
+                        <a href="admin.php"><div id="divHeadRightSix">Admin</div></a>
+                    </nav>                   
+                </td>
+            </tr>
+        </table>
+
+        <div id="regSection">
+            <form id="regForm" action="registration.php" method="post" onsubmit="return submitForm(this)">   
+                <table id="regTable">
+                    <tr>
+                    	<td>
+                    		<div class = descriptorText>Title:
+		                        <select name="titles" id="titleSelector">
+		                            <option value="--">--</option>
+		                            <option value="Mr">Mr</option>
+		                            <option value="Mrs">Mrs</option>
+		                            <option value="Miss">Miss</option>
+		                            <option value="Ms">Ms</option>
+		                        </select>
+		                    </div>
+                    	</td>
+                    	<td></td>
+                    	<td>
+                    		<div class = descriptorText>Check box to recieve a weekly newsletter! <input type="checkbox" name="newsletter" id="myCheck"></div>
+                    	</td>
+                    </tr>
+                    <tr>
+                        <td><textarea class="smallArea" id="nameOne" name="firstName" placeholder="First Name"></textarea></td>
+                        <td><textarea class="smallArea" id="nameTwo" name="surname" placeholder="Surname"></textarea></td>
+                        <td><textarea class="smallArea" id="email" name="emailAddress" placeholder="Email Address"></textarea></td>
+                    </tr>                        
+                    <tr>       
+                        <td colspan="3"><input id="interestBtn" name="interestButton" type="submit" value="Register Interest"></td>
+                    </tr>                   
+                </table>
+                <div id="error"></div>
+            </form>
+
+            <script type="text/javascript">
+
+                // Validation variables
+                var validation = false;
+                
+                var userTitle = "--"; 
+                var letters = /^[A-Za-z]+$/; 
+                var validEmails = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i; 
+
+            function submitForm(form) {  
+                    var titleOption = form.titleSelector.value;  
+                    var firstName = form.nameOne.value;
+                    var surname = form.nameTwo.value;
+                    var email = form.email.value;
+
+                if(validation == false) {   
+                    if (titleOption != userTitle) {
+                        console.log(titleOption);
+                        console.log(userTitle);
+                      if (firstName.match(letters)){
+                        if (surname.match(letters)){
+                            if (email.match(validEmails)){
+                                document.getElementById("error").innerHTML = "";
+                                return true;                               
+                            } else {
+                                document.getElementById("error").innerHTML = "Not a valid email address!";
+                                return false;
+                            }
+                          } else {
+                                document.getElementById("error").innerHTML = "Please refrain from using special characters or spaces in surname!";
+                                return false; 
+                          }
+                      } else {
+                            document.getElementById("error").innerHTML = "Please refrain from using special characters or spaces in first name!";
+                            return false; 
+                      }
+                    } else {
+                        document.getElementById("error").innerHTML = "Please enter an option for your title (Mr, Mrs, Miss, Ms).";
+                        return false;
+                    }
+                        
+                } 
+            }
+            </script>
+        </div>
+    </body>
+</html>

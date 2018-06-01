@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>  
+<head>
+  
+</head>
+<body>
+
+<form>
+<!-- Name: <input id="selectName" type="text" name="name"><br> -->
+<input class="museumButton" type="button" value="Kelvingrove Art Gallery and Museum" onclick="getMuseum(1)">
+<input class="museumButton" type="button" value="The Burrell Collection" onclick="getMuseum(2)">
+<input class="museumButton" type="button" value="Gallery of Modern Art" onclick="getMuseum(3)">
+<input class="museumButton" type="button" value="St. Mungo Museum of Religious Life and Art" onclick="getMuseum(4)">
+<input class="museumButton" type="button" value="Hunterian Gallery" onclick="getMuseum(5)">
+<input class="museumButton" type="button" value="Pollok House" onclick="getMuseum(6)">
+<input class="museumButton" type="button" value="Mackintosh Building" onclick="getMuseum(7)">
+<input class="museumButton" type="button" value="Collins Gallery" onclick="getMuseum(8)">
+<input class="museumButton" type="button" value="McLellan Galleries" onclick="getMuseum(9)">
+
+</form>
+
+
+
+
+<table id="result"></table>
+
+<script type="text/javascript"> 
+var museumIndex = "";
+
+function getMuseum(number) {
+  museumIndex = number;
+  dataRetrieval();
+}
+
+function ajaxRequest(){
+ var activexmodes=["Msxml2.XMLHTTP", "Microsoft.XMLHTTP"] //activeX versions to check for in IE
+ if (window.ActiveXObject){ //Test for support for ActiveXObject in IE first (as XMLHttpRequest in IE7 is broken)
+  for (var i=0; i<activexmodes.length; i++){
+   try{
+    return new ActiveXObject(activexmodes[i])
+   }
+   catch(e){
+    //suppress error
+   }
+  }
+ }
+ else if (window.XMLHttpRequest) // if Mozilla, Safari etc
+  return new XMLHttpRequest()
+ else
+  return false
+}
+
+function dataRetrieval() {
+
+var mygetrequest = new ajaxRequest()
+mygetrequest.onreadystatechange = function(){
+ if (mygetrequest.readyState == 4){
+  if (mygetrequest.status == 200 || window.location.href.indexOf("http") == -1){
+   var jsondata=eval("("+mygetrequest.responseText+")") //retrieve result as an JavaScript object
+   var rssentries=jsondata.museums
+   var table="<tr><th>ID</th><th>Museum</th><th>Location</th><th>Open Hours</th><th>Close Hours</th></tr>";
+   for (var i=0; i<rssentries.length; i++){
+    table += "<tr><td>" + rssentries[i].id + "</td>" +
+        "<td>" + rssentries[i].museum_name + "</td>" + 
+        "<td>" + rssentries[i].address + "</td>" + 
+        "<td>" + rssentries[i].open_time + "</td>" + 
+        "<td>" + rssentries[i].close_time + "</td></tr>";
+    
+   
+   }
+   
+   document.getElementById("result").innerHTML=table
+  }
+  else{
+   alert("An error has occured making the request")
+  }
+ }
+}
+
+mygetrequest.open("GET", "../webServices/museumCredentials.php?id="+museumIndex, true)
+mygetrequest.send(null)
+}
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+.item {
+	height: 200px;
+}
+
+.footer {
+	height: 100px;
+}
+
+#mynavbar {
+	margin-bottom: 0;
+}
+
+#pageFooter {
+	margin-bottom: 0;
+	padding-bottom: 50px;	
+}
+
+#pageFooter .navbar-nav {
+    display: inline-block;
+    float: none;
+    text-align: center;
+}
+
+#footerText {
+	font-size: 1em !important;
+}
+
+.col-centered {	
+	text-align: center;
+	float: none;
+    margin: 0 auto;
+    margin-top: 0.5%;
+}
+
+.col-centered-m {
+	text-align: center;
+	float: none;
+    margin: 0 auto;
+	margin-top: 5%;
+}
+#map {
+        height: 400px;
+        width: 100%;
+    }
+
+#mainContainer {
+  max-width: 800px;
+  margin: auto;
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 800px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 800px;
+  }
+}
+
+/* Allowing the navbar to collapse, at a screen width of 5000px or less */
+@media (max-width: 5000px) {
+  .navbar-header {
+      float: none;
+  }
+  .navbar-left,.navbar-right {
+      float: none !important;
+  }
+  .navbar-toggle {
+      display: block;
+  }
+  .navbar-collapse {
+      border-top: 1px solid transparent;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+  .navbar-fixed-top {
+      top: 0;
+      border-width: 0 0 1px;
+  }
+  .navbar-collapse.collapse {
+      display: none!important;
+  }
+  .navbar-nav {
+      float: none!important;
+      margin-top: 7.5px;
+  }
+  .navbar-nav>li {
+      float: none;
+  }
+  .navbar-nav>li>a {
+      padding-top: 10px;
+      padding-bottom: 10px;
+  }
+  .collapse.in{
+      display:block !important;
+  }
+}

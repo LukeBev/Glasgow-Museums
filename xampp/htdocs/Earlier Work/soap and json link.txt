@@ -1,0 +1,1 @@
+https://social.msdn.microsoft.com/Forums/vstudio/en-US/2542228f-9b73-4158-bc8f-f1caede95398/json-in-a-soap-message-body?forum=wcf

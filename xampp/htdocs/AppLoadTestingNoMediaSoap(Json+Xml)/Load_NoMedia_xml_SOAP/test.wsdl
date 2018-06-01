@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<wsdl:definitions name="Museums"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  targetNamespace="Museums"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="Museums"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+    <xsd:documentation></xsd:documentation>
+
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="Museums">
+            <xsd:complexType name="museum">
+                <xsd:sequence>
+                    <xsd:element name="name" type="xsd:string"></xsd:element>
+                    <xsd:element name="year" type="tns:integer"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="museumIDRequest">
+        <wsdl:part name="museum" type="xsd:museum"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="museumIDResponse">
+        <wsdl:part name="year" type="tns:integer"></wsdl:part>
+    </wsdl:message>
+
+    <wsdl:portType name="Museums">
+        <wsdl:operation name="museumID">
+            <wsdl:input message="tns:museumIDRequest"/>
+            <wsdl:output message="tns:museumIDResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="Museums" type="tns:Museums">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="museumID">
+            <soap:operation soapAction="http://localhost:180/AppLoadTestingNoMediaSoap(Json+Xml)/Load_NoMedia_xml_SOAP/soapServer.php"/>
+            <wsdl:input>
+                <soap:body use="literal" namespace="Museums"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" namespace="Museums"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="Museums">
+        <wsdl:port binding="tns:Museums" name="GlasgowMuseums">
+            <soap:address location="http://localhost:180/AppLoadTestingNoMediaSoap(Json+Xml)/Load_NoMedia_xml_SOAP/soapServer.php"/>
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>
